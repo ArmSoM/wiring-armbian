@@ -2,8 +2,8 @@
 
 ```
 # apt-get update
-# apt-get install -y git
-# git clone https://github.com/as-jackson/wiring-armbian.git
+# apt-get install -y git make build-essential
+# git clone https://github.com/ArmSoM/wiring-armbian.git
 ```
 
 ## How to build wiring-armbian
