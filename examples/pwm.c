@@ -70,6 +70,7 @@ static void set_pwm_info(int pin)
 				exit(1);
 			}
 			break;
+		case PI_MODEL_SIGE7:
 		case PI_MODEL_5_PLUS:
 		case PI_MODEL_AI_MAX:
 			if (pin != 0 && pin != 1 && pin != 2 && pin != 6 && pin != 9 && pin != 10 && pin != 13 && pin != 17 && pin != 20 && pin != 21 && pin != 22) {

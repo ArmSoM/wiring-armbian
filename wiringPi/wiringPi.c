@@ -349,6 +349,15 @@ static int ORANGEPI_PIN_MASK_CM5_TABLET[5][32] =  //[BANK]	[INDEX]
 	{-1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,},//GPIO4
 };
 
+static int ORANGEPI_PIN_MASK_SIGE7[5][32] =  //[BANK]	[INDEX]
+{
+	{ 0,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1, 5, 6,-1,  0,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,},//GPIO0
+	{-1,-1,-1,-1,-1,-1,-1,-1, -1, 1, 2, 3, 4, 5,-1, 7, -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1, 7,},//GPIO1
+	{-1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,},//GPIO2
+	{-1,-1,-1,-1, 4,-1,-1, 7, -1, 1, 2, 3,-1, 5, 6, 7,  0, 1, 2, 3,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,},//GPIO3
+	{-1,-1,-1,-1,-1,-1,-1,-1, -1,-1, 2, 3,-1,-1,-1,-1, -1,-1,-1,-1, 4, 5, 6,-1, -1,-1,-1,-1,-1,-1,-1,-1,},//GPIO4
+};
+
 static int ORANGEPI_PIN_MASK_5MAX[5][32] =  //[BANK]	[INDEX]
 {
 	{-1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1, 5, 6, 7,  0,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,},//GPIO0
@@ -1068,6 +1077,29 @@ int pinToGpio_5PRO[64] =
 	63, 135,      //22,23
 	131,134,      //24,25
 	132,133,      //26,27
+	-1,  -1,      //28,29
+	-1,  -1,      //30,31
+
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // ... 47
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,// ... 63
+};
+
+int pinToGpio_SIGE7[64] =
+{
+	139,  138,      // 0, 1
+	115,  13,      // 2, 3
+	14, 113,      // 4  5
+	109, 111,      // 6, 7
+	112,  100,      // 8, 9
+	148,  42,      //10,11
+	41,  -1,      //12,13
+	43,  44,      //14,15
+	45,  150,      //16,17
+	149,  63,      //18,19
+	47,  114,      //20,21
+	103, 110,      //22,23
+	105,0,      //24,25
+	106,107,      //26,27
 	-1,  -1,      //28,29
 	-1,  -1,      //30,31
 
@@ -1913,6 +1945,35 @@ int physToGpio_5PRO[64] =
 	-1, -1, -1, -1, -1, -1, -1,   // ... 63
 };
 
+int physToGpio_SIGE7[64] =
+{
+	-1,        // 0
+	-1,  -1,   // 1, 2
+	139,  -1,   // 3, 4
+	138,  -1,   // 5, 6
+	115,  13,   // 7, 8
+	-1,  14,   // 9, 10
+	113, 109,   // 11, 12
+	111, -1,   // 13, 14
+	112,  100,   // 15, 16
+	-1,  148,   // 17, 18
+	42,  -1,   // 19, 20
+	41,  -1,   // 21, 22
+	43,  44,   // 23, 24
+	-1,  45,   // 25, 26
+	150,  149,   // 27, 28
+	63,  -1,   // 29, 30
+	47,  114,   // 31, 32
+	103,  -1,   // 33, 34
+	110,105,   // 35, 36
+	0,106,   // 37, 38
+	-1, 107,   // 39, 40
+
+	//Padding:
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,   // ... 56
+	-1, -1, -1, -1, -1, -1, -1,   // ... 63
+};
+
 int physToGpio_CM5[64] =
 {
 	-1,        // 0
@@ -2659,6 +2720,7 @@ void piBoardId (int * model)
 	else if (strncmp(revision, "orangepi5.",               10) == 0) { *model = PI_MODEL_5; }
 	else if (strncmp(revision, "orangepi5b.",              11) == 0) { *model = PI_MODEL_5B; }
 	else if (strncmp(revision, "orangepi5pro.",            13) == 0) { *model = PI_MODEL_5_PRO; }
+	else if (strncmp(revision, "armsom-sige7.",            13) == 0) { *model = PI_MODEL_SIGE7; }
 	else if (strncmp(revision, "orangepi5max.",            13) == 0) { *model = PI_MODEL_5_MAX; }
 	else if (strncmp(revision, "orangepi5ultra.",          15) == 0) { *model = PI_MODEL_5_ULTRA; }
 	else if (strncmp(revision, "orangepi5plus.",           14) == 0) { *model = PI_MODEL_5_PLUS; }
@@ -2905,6 +2967,7 @@ void orangepi_pwm_set_tone(int pin,int freq)
 		case PI_MODEL_5B:
 		case PI_MODEL_CM5:
 		case PI_MODEL_CM5_TABLET:
+		case PI_MODEL_SIGE7:
 		case PI_MODEL_5_PRO:
 		case PI_MODEL_5_MAX:
 		case PI_MODEL_5_ULTRA:
@@ -3133,6 +3196,7 @@ void orangepi_pwm_set_clk(int pin,int clk)
 		case PI_MODEL_5B:
 		case PI_MODEL_CM5:
 		case PI_MODEL_CM5_TABLET:
+		case PI_MODEL_SIGE7:
 		case PI_MODEL_5_PRO:
 		case PI_MODEL_5_MAX:
 		case PI_MODEL_5_ULTRA:
@@ -3355,6 +3419,7 @@ void orangepi_pwm_set_period(int pin, unsigned int period_cys)
 		case PI_MODEL_5B:
 		case PI_MODEL_CM5:
 		case PI_MODEL_CM5_TABLET:
+		case PI_MODEL_SIGE7:
 		case PI_MODEL_5_PRO:
 		case PI_MODEL_5_MAX:
 		case PI_MODEL_5_ULTRA:
@@ -3519,6 +3584,7 @@ void orangepi_pwm_set_act(int pin, int act_cys)
 		case PI_MODEL_5B:
 		case PI_MODEL_CM5:
 		case PI_MODEL_CM5_TABLET:
+		case PI_MODEL_SIGE7:
 		case PI_MODEL_5_PRO:
 		case PI_MODEL_5_MAX:
 		case PI_MODEL_5_ULTRA:
@@ -4973,6 +5039,11 @@ int wiringPiSetup (void)
 			physToGpio = physToGpio_CM5_TABLET;
 			ORANGEPI_PIN_MASK = ORANGEPI_PIN_MASK_CM5_TABLET;
 			break;
+		case PI_MODEL_SIGE7:
+			pinToGpio =  pinToGpio_SIGE7;
+			physToGpio = physToGpio_SIGE7;
+			ORANGEPI_PIN_MASK = ORANGEPI_PIN_MASK_SIGE7;
+			break;
 		case PI_MODEL_5_PRO:
 			pinToGpio =  pinToGpio_5PRO;
 			physToGpio = physToGpio_5PRO;
@@ -5124,7 +5195,7 @@ int wiringPiSetup (void)
 
 			break;
 
-		case PI_MODEL_5: case PI_MODEL_5B: case PI_MODEL_5_PRO: case PI_MODEL_5_MAX: case PI_MODEL_5_PLUS: case PI_MODEL_900:
+		case PI_MODEL_5: case PI_MODEL_5B: case PI_MODEL_SIGE7: case PI_MODEL_5_PRO: case PI_MODEL_5_MAX: case PI_MODEL_5_PLUS: case PI_MODEL_900:
 		case PI_MODEL_CM5:
 		case PI_MODEL_CM5_TABLET:
 		case PI_MODEL_5_ULTRA:
@@ -5547,6 +5618,7 @@ unsigned int readR(unsigned int addr)
 	switch (OrangePiModel)
 	{
 		case PI_MODEL_5: case PI_MODEL_5B:
+		case PI_MODEL_SIGE7:
 		case PI_MODEL_5_PRO:
 		case PI_MODEL_5_MAX:
 		case PI_MODEL_5_ULTRA:
@@ -5789,6 +5861,7 @@ void writeR(unsigned int val, unsigned int addr)
 	switch (OrangePiModel)
 	{
 		case PI_MODEL_5: case PI_MODEL_5B:
+		case PI_MODEL_SIGE7:
 		case PI_MODEL_5_PRO:
 		case PI_MODEL_5_MAX:
 		case PI_MODEL_5_ULTRA:
@@ -6047,6 +6120,7 @@ int orangepi_get_gpio_mode(int pin)
 			break;
 
 		case PI_MODEL_5: case PI_MODEL_5B:
+		case PI_MODEL_SIGE7:
 		case PI_MODEL_5_PRO:
 		case PI_MODEL_5_MAX:
 		case PI_MODEL_5_ULTRA:
@@ -6575,6 +6649,9 @@ void rk3588_set_pwm_reg(int pin, rk3588_soc_info * rk3588_soc_info_ptr)
 				case PI_MODEL_CM5_TABLET:
 					printf("You can select wiringPi pin 0/2/5/13 for PWM pin.\n");
 					break;
+				case PI_MODEL_SIGE7:
+					printf("You can select wiringPi pin 0/1/2/6/10/17/18/19/20/21/22/23/24/26 for PWM pin.\n");
+					break;
 				case PI_MODEL_5_PLUS:
 				case PI_MODEL_AI_MAX:
 					printf("You can select wiringPi pin 0/1/2/6/9/10/13/17/20/21/22 for PWM pin.\n");
@@ -6645,6 +6722,7 @@ int orangepi_set_gpio_mode(int pin, int mode)
 	switch (OrangePiModel)
 	{
 		case PI_MODEL_5: case PI_MODEL_5B:
+		case PI_MODEL_SIGE7:
 		case PI_MODEL_5_PRO:
 		case PI_MODEL_5_MAX:
 		case PI_MODEL_5_ULTRA:
@@ -7703,6 +7781,7 @@ int orangepi_digitalWrite(int pin, int value)
 	switch (OrangePiModel)
 	{
 		case PI_MODEL_5: case PI_MODEL_5B:
+		case PI_MODEL_SIGE7:
 		case PI_MODEL_5_PRO:
 		case PI_MODEL_5_MAX:
 		case PI_MODEL_5_ULTRA:
@@ -8090,6 +8169,7 @@ int orangepi_digitalRead(int pin)
 	switch (OrangePiModel)
 	{
 		case PI_MODEL_5: case PI_MODEL_5B:
+		case PI_MODEL_SIGE7:
 		case PI_MODEL_5_PRO:
 		case PI_MODEL_5_MAX:
 		case PI_MODEL_5_ULTRA:
@@ -8230,6 +8310,7 @@ void OrangePi_set_gpio_pullUpDnControl (int pin, int pud)
 	switch (OrangePiModel)
 	{
 		case PI_MODEL_5: case PI_MODEL_5B:
+		case PI_MODEL_SIGE7:
 		case PI_MODEL_5_PRO:
 		case PI_MODEL_5_MAX:
 		case PI_MODEL_5_ULTRA:
