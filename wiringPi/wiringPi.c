@@ -3142,7 +3142,7 @@ void orangepi_pwm_set_tone(int pin,int freq)
 				//writeR(0, a310b_gpio_info_t.pwm_ch3_pwl_phyaddr);
 				//writeR(pwm_period * duty_ratio / 100, a310b_gpio_info_t.pwm_ch3_pwh_phyaddr);
 			} else {
-				printf("wiringop: pwm freq error!!! (1 ~ 32000hz)\n");
+				printf("wiring-armbian: pwm freq error!!! (1 ~ 32000hz)\n");
 			}
 
 			break;
@@ -3360,7 +3360,7 @@ void orangepi_pwm_set_clk(int pin,int clk)
 				return;
 			}
 
-			printf("wiringop: opiaipro pwm clock is 150M. Not support setting the clock!!!\n");
+			printf("wiring-armbian: opiaipro pwm clock is 150M. Not support setting the clock!!!\n");
 
 			break;
 
@@ -3739,7 +3739,7 @@ void orangepi_pwm_set_act(int pin, int act_cys)
 			pwm_period = readR(a310b_gpio_info_t.pwm_prd3_phyaddr);
 			if (act_cys >= pwm_period || act_cys < 0)
 			{
-				printf("wiringop: error: value greater than period(%d)\n", pwm_period);
+				printf("wiring-armbian: error: value greater than period(%d)\n", pwm_period);
 				return;
 			}
 
