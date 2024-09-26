@@ -92,6 +92,7 @@ static void set_pwm_info(int pin)
 			}
 			break;
 		case PI_MODEL_CM4:
+		case PI_MODEL_SIGE3:
 		case PI_MODEL_3B:
 			if (pin != 2 && pin != 21) {
 				fprintf (stderr, "the pin you choose doesn't support hardware PWM\n") ;

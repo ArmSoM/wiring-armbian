@@ -1570,6 +1570,60 @@ static char * physNames_CM4[64] =
 	"     GND", "GPIO3_D1",
 };
 
+static int physToWpi_SIGE3[64] =
+{
+	-1,     //0
+	-1, -1, //1,2
+	 0, -1, //3,4
+	 1, -1, //5,6
+	 2,  3, //7,8
+	-1,  4, //9,10
+	 5,  6, //11,12
+	 7, -1, //13,14
+	 8,  9, //15,16
+	-1, 10, //17,18
+	11, -1, //19,20
+	12, 13, //21,22
+	14, 15, //23,24
+	-1, 16, //25,26
+	17, 18, //27,28
+	19, -1, //29,30
+	20, 21, //31,32
+	22, -1, //33,34
+	23, 24, //35,36
+	25, 26, //37,38
+	-1, 27, //39,40
+
+	// Padding:
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // ... 56
+	-1, -1, -1, -1, -1, -1, -1,    					// ... 63
+};
+
+static char * physNames_SIGE3[64] =
+{
+	NULL,
+	"    3.3V", "5V      ",
+	"   SDA.5", "5V      ",
+	"   SCL.5", "GND     ",
+	"GPIO2_D3", "TXD.2   ",
+	"     GND", "RXD.2   ",
+	"GPIO3_A1", "GPIO4_A5",
+	"GPIO3_A3", "GND     ",
+	"GPIO3_A7", "GPIO3_B0",
+	"    3.3V", "GPIO3_B1",
+	"GPIO2_C3", "GND     ",
+	"GPIO2_C2", "GPIO3_B2",
+	"GPIO2_C1", "GPIO2_C4",
+	"     GND", "GPIO2_C5",
+	"GPIO3_B6", "GPIO3_B5",
+	"GPIO3_B7", "GND     ",
+	"GPIO3_C0", "GPIO3_C4",
+	"   PWM15", "GND     ",
+	"GPIO4_A6", "TXD.5   ",
+	"   RXD.5", "GPIO3_A6",
+	"     GND", "GPIO3_A5",
+};
+
 static int physToWpi_RV[64] =
 {
 	-1,     //0
@@ -2159,6 +2213,16 @@ void OrangePiReadAll(int model)
 			}
 
 			break;
+		case PI_MODEL_SIGE3:
+			printf (" +------+-----+--------+--------+---+   ARMSOM-SIGE3   +---+--------+--------+-----+------+\n");
+			physToWpi =  physToWpi_SIGE3;
+			physNames =  physNames_SIGE3;
+			alts = alts_rk3588;
+			if(0x20 & readR(RK3566_PMU_GRF_BASE + 0x144)) {
+				physToWpi =  physToWpi_SIGE3;
+				physNames =  physNames_SIGE3;
+			}
+			break;
 		case PI_MODEL_3B:
 			printf (" +------+-----+----------+--------+---+   PI3B   +---+--------+----------+-----+------+\n");
 			physToWpi =  physToWpi_3B;
@@ -2211,6 +2275,7 @@ void OrangePiReadAll(int model)
 		case PI_MODEL_AI_MAX:
 		case PI_MODEL_900:
 		case PI_MODEL_CM4:
+		case PI_MODEL_SIGE3:
 		case PI_MODEL_3B:
 		case PI_MODEL_ZERO_2_W:
 		case PI_MODEL_3_PLUS:
@@ -2341,6 +2406,9 @@ void OrangePiReadAll(int model)
 			break;
 		case PI_MODEL_CM4:
 			printf (" +------+-----+----------+--------+---+  PI CM4  +---+--------+----------+-----+------+\n");
+			break;
+		case PI_MODEL_SIGE3:
+			printf (" +------+-----+--------+--------+---+  ARMSOM-SIGE3  +---+-------+---------+-----+------+\n");
 			break;
 		case PI_MODEL_3B:
 			printf (" +------+-----+----------+--------+---+   PI3B   +---+--------+----------+-----+------+\n");

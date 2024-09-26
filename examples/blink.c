@@ -46,6 +46,7 @@ unsigned char getGpioNum(void)
 		case PI_MODEL_AI_MAX:
 		case PI_MODEL_900:
 		case PI_MODEL_CM4:
+		case PI_MODEL_SIGE3:
 		case PI_MODEL_3B:
 		case PI_MODEL_ZERO_2_W:
 		case PI_MODEL_3_PLUS:

@@ -786,6 +786,7 @@ extern int wiringPiDebug;
 
 /* Rockchip RK3566 */
 #define PI_MODEL_CM4             50
+#define PI_MODEL_SIGE3           52
 #define PI_MODEL_3B              51
 
 /* S905D3 */
