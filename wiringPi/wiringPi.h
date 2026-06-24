@@ -74,6 +74,9 @@
 #define A527_GPIO_BASE_ADDR                     0x02000000U
 /********** Allwinner A527 ************/
 
+/********** Allwinner T736 ************/
+#define T736_R_GPIO_BASE_ADDR                   0x07025000U
+
 typedef struct {
 	unsigned int gpio_base_addr;
 	unsigned int r_gpio_base_addr;
@@ -81,6 +84,7 @@ typedef struct {
 	unsigned int * r_gpio;
 	unsigned int gpio_base_offset;
 	unsigned int r_gpio_base_offset;
+	unsigned int r_gpio_pull_offset;
 	unsigned int gpio_bank_offset;
 	unsigned int pull_offset;
 	unsigned int gpio_cfg_mask;
@@ -800,6 +804,9 @@ extern int wiringPiDebug;
 
 /* Allwinner A527 */
 #define PI_MODEL_4A              90
+
+/* Allwinner A733 */
+#define PI_MODEL_SIGE6           100
 
 extern const char *piModelNames    [16] ;
 
