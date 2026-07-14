@@ -787,6 +787,7 @@ extern int wiringPiDebug;
 #define PI_MODEL_5_ULTRA         40
 #define PI_MODEL_AI_MAX          41
 #define PI_MODEL_SIGE7			 42
+#define PI_MODEL_SIGE7s			 43
 
 /* Rockchip RK3566 */
 #define PI_MODEL_CM4             50
